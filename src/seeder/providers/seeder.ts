@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { CategoriesSeederService } from '../services/categoriesSeeder.service';
 import { NotificationsSeederService } from '../services/notificationsSeeder.service';
+import { UsersSeederService } from '../services/usersSeeder.service';
 
 @Injectable()
 export class Seeder {
@@ -8,6 +9,7 @@ export class Seeder {
     private readonly logger: Logger,
     private readonly categorySeederService: CategoriesSeederService,
     private readonly notificationsSeederService: NotificationsSeederService,
+    private readonly usersSeederService: UsersSeederService,
   ) {}
 
   async seed() {
@@ -31,6 +33,8 @@ export class Seeder {
         this.logger.error('Failed seeding notifications...');
         Promise.reject(error);
       });
+
+    await this.checkUsers();
   }
 
   async categories() {
@@ -57,6 +61,29 @@ export class Seeder {
           'No. of notifications created : ' +
             // Remove all null values and return only created languages.
             createdNotifications.filter(
+              (nullValueOrCreatedLanguage) => nullValueOrCreatedLanguage,
+            ).length,
+        );
+        return Promise.resolve(true);
+      })
+      .catch((error) => Promise.reject(error));
+  }
+
+  async checkUsers() {
+    const usersCount = await this.usersSeederService.findAll();
+    if (usersCount == 0) {
+      await this.users();
+    }
+  }
+
+  async users() {
+    return await Promise.all(this.usersSeederService.create())
+      .then((createdUsers) => {
+        // Can also use this.logger.verbose('...');
+        this.logger.debug(
+          'No. of users created : ' +
+            // Remove all null values and return only created languages.
+            createdUsers.filter(
               (nullValueOrCreatedLanguage) => nullValueOrCreatedLanguage,
             ).length,
         );
