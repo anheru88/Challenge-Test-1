@@ -77,7 +77,7 @@ export class Seeder {
   }
 
   async users() {
-    return await Promise.all(this.usersSeederService.create())
+    return await Promise.all(await this.usersSeederService.create())
       .then((createdUsers) => {
         // Can also use this.logger.verbose('...');
         this.logger.debug(

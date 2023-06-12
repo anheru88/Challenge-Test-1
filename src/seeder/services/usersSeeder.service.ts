@@ -4,16 +4,16 @@ import { User } from '../../users/entities/user.entity';
 import { UserRepositoryTypeORM } from '../../users/repositories/userRepository.TypeORM';
 import { UserDTO } from '../../users/dto/user.dto';
 import { UserFactory } from '../../users/factory/user.factory';
-import { notificationsData } from '../data/notifications.data';
-import { NotificationInterface } from '../../notifications/entities/interfaces/notification.interface';
-import { UserInterface } from '../../users/entities/interfaces/user.interface';
 import { UserService } from '../../users/services/user.service';
+import { CategoriesService } from '../../categories/services/categories.service';
+import { UserInterface } from '../../users/entities/interfaces/user.interface';
 
 @Injectable()
 export class UsersSeederService {
   constructor(
     private readonly userRepository: UserRepositoryTypeORM,
     private readonly userService: UserService,
+    private readonly categoryService: CategoriesService,
   ) {}
 
   /**
@@ -21,10 +21,11 @@ export class UsersSeederService {
    *
    * @function
    */
-  create(): Array<Promise<User>> {
+  async create(): Promise<Array<Promise<User>>> {
     const users: UserDTO[] = [];
+    const userFactory = new UserFactory(this.categoryService);
     for (let i = 0; i < 100; i++) {
-      const user = UserFactory.create();
+      const user = await userFactory.create();
       users.push(user);
     }
 

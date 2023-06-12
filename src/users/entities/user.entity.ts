@@ -1,9 +1,10 @@
 /**
  * Represents a User entity in the database.
  */
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { BaseEntity } from '../../config/base.entity';
 import { UserInterface } from './interfaces/user.interface';
+import { Category } from '../../categories/entities/category.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity implements UserInterface {
@@ -18,4 +19,8 @@ export class User extends BaseEntity implements UserInterface {
 
   @Column()
   phoneNumber: string;
+
+  @ManyToMany(() => Category)
+  @JoinTable()
+  subscribed: Category[];
 }
