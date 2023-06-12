@@ -57,3 +57,5 @@ We will evaluate:
 
 ## Solution
 
+First of all, when considering the solution, different language options were explored. However, in order to align with the company's preferred language, it was decided to use Node.js in the backend with the Nest framework. This choice allows for learning and familiarizing oneself with the framework while working on the test.
+

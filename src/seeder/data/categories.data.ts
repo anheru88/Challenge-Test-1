@@ -1,7 +1,9 @@
-import { ICategory } from '../../interfaces/category.interface';
+import { CategoryInterface } from '../../categories/entities/interfaces/category.interface';
 
-export const categories: ICategory[] = [
+export const categoriesData: CategoryInterface[] = [
   { name: 'Sports' },
   { name: 'Finance' },
   { name: 'Movies' },
+  { name: 'Business' },
+  { name: 'Home' },
 ];
