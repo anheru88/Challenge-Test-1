@@ -11,12 +11,14 @@ import { EMailNotificationDecorator } from '../decorators/e-mail-notification.de
 import { PushNotificationDecorator } from '../decorators/push-notification.decorator';
 import { SlackNotificationDecorator } from '../decorators/slack-notification.decorator';
 import { DiscordNotificationDecorator } from '../decorators/discord-notification.decorator';
+import { LogsService } from '../../logger/services/logs.service';
 
 @Injectable()
 export class SendNotificationService {
   constructor(
     private readonly categoriesService: CategoriesService,
     private readonly userService: UserService,
+    private readonly logsService: LogsService,
   ) {}
 
   async send(CreateMessageDTO: CreateMessageDTO): Promise<any> {
@@ -54,6 +56,7 @@ export class SendNotificationService {
         notification,
         CreateMessageDTO,
         User,
+        this.logsService,
       );
     }
 
@@ -62,6 +65,7 @@ export class SendNotificationService {
         notification,
         CreateMessageDTO,
         User,
+        this.logsService,
       );
     }
 
@@ -70,6 +74,7 @@ export class SendNotificationService {
         notification,
         CreateMessageDTO,
         User,
+        this.logsService,
       );
     }
 
@@ -78,6 +83,7 @@ export class SendNotificationService {
         notification,
         CreateMessageDTO,
         User,
+        this.logsService,
       );
     }
 
@@ -86,6 +92,7 @@ export class SendNotificationService {
         notification,
         CreateMessageDTO,
         User,
+        this.logsService,
       );
     }
 

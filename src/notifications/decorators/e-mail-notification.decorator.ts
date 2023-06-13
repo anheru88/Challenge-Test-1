@@ -1,18 +1,30 @@
 import { NotificationDecoratorInterface } from './interfaces/notification-decorator.interface';
 import { CreateMessageDTO } from '../../message/dto/create-message.dto';
 import { User } from '../../users/entities/user.entity';
+import { LogsService } from '../../logger/services/logs.service';
 
 export class EMailNotificationDecorator
   implements NotificationDecoratorInterface
 {
   constructor(
     private notification: NotificationDecoratorInterface,
-    CreateMessageDTO: CreateMessageDTO,
-    User: User,
+    private CreateMessageDTO: CreateMessageDTO,
+    private User: User,
+    private readonly logsService: LogsService,
   ) {}
 
   notify(): void {
+    const { message, category } = this.CreateMessageDTO;
+    const notificationType = 'E-Mail Notification';
+    const userInfo = JSON.stringify(this.User);
+
+    this.logsService.logRepository.save({
+      category,
+      message,
+      notificationType,
+      userInfo,
+    });
+
     this.notification.notify();
-    console.log('This is a E-Mail Notification');
   }
 }

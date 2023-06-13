@@ -13,6 +13,6 @@ export class Log extends BaseEntity implements LogInterface {
   @Column()
   notificationType: string;
 
-  @Column()
+  @Column('simple-array')
   userInfo: string;
 }

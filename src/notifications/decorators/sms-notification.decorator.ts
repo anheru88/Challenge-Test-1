@@ -1,6 +1,7 @@
 import { NotificationDecoratorInterface } from './interfaces/notification-decorator.interface';
 import { CreateMessageDTO } from '../../message/dto/create-message.dto';
 import { User } from '../../users/entities/user.entity';
+import { LogsService } from '../../logger/services/logs.service';
 
 export class SmsNotificationDecorator
   implements NotificationDecoratorInterface
@@ -9,17 +10,20 @@ export class SmsNotificationDecorator
     private notification: NotificationDecoratorInterface,
     private CreateMessageDTO: CreateMessageDTO,
     private User: User,
+    private readonly logsService: LogsService,
   ) {}
 
   notify(): void {
     const { message, category } = this.CreateMessageDTO;
+    const notificationType = 'SMS Notification';
+    const userInfo = JSON.stringify(this.User);
 
-    console.log(message);
-    console.log(category);
-
-    // this.logsService.logRepository.create({});
-
-    console.log('This is a SMS Notification');
+    this.logsService.logRepository.save({
+      category,
+      message,
+      notificationType,
+      userInfo,
+    });
 
     this.notification.notify();
   }

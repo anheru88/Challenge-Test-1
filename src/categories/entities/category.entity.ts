@@ -14,6 +14,9 @@ export class Category extends BaseEntity implements CategoryInterface {
   @Column({ unique: true })
   name: string;
 
+  /**
+   * The relation with User. Using Many-to-many relationship.
+   */
   @ManyToMany(() => User, (user) => user.subscribed)
   users: User[];
 }

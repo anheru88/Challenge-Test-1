@@ -7,6 +7,7 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
   @Post()
   async creteMessage(@Body() createMessageDto: CreateMessageDTO) {
+    // @Todo : Prevent passing a non-existent category.
     return await this.messageService.createMessage(createMessageDto);
   }
 }
