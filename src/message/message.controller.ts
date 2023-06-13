@@ -6,7 +6,7 @@ import { MessageService } from './services/message.service';
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
   @Post()
-  creteMessage(@Body() createMessageDto: CreateMessageDTO) {
-    return this.messageService.createMessage(createMessageDto);
+  async creteMessage(@Body() createMessageDto: CreateMessageDTO) {
+    return await this.messageService.createMessage(createMessageDto);
   }
 }

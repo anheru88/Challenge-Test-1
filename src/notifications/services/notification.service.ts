@@ -9,6 +9,4 @@ export class NotificationService {
     @InjectRepository(Notification)
     public readonly notificationRepository: Repository<Notification>,
   ) {}
-
-  sendNotifications() {}
 }
