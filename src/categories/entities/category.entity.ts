@@ -1,9 +1,10 @@
 /**
  * Represents a Category entity in the database.
  */
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, ManyToMany } from 'typeorm';
 import { BaseEntity } from '../../config/base.entity';
 import { CategoryInterface } from './interfaces/category.interface';
+import { User } from '../../users/entities/user.entity';
 
 @Entity({ name: 'categories' })
 export class Category extends BaseEntity implements CategoryInterface {
@@ -12,4 +13,7 @@ export class Category extends BaseEntity implements CategoryInterface {
    */
   @Column({ unique: true })
   name: string;
+
+  @ManyToMany(() => User, (user) => user.subscribed)
+  users: User[];
 }
