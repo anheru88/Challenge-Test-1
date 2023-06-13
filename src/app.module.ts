@@ -4,6 +4,7 @@ import { DatabaseProvidersModule } from './database-providers/database-providers
 import { NotificationsModule } from './notifications/notifications.module';
 import { UsersModule } from './users/users.module';
 import { LoggerModule } from './logger/logger.module';
+import { MessageModule } from './message/message.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { LoggerModule } from './logger/logger.module';
     NotificationsModule,
     UsersModule,
     LoggerModule,
+    MessageModule,
   ],
 })
 export class AppModule {}

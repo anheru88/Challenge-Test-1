@@ -5,6 +5,7 @@ import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { BaseEntity } from '../../config/base.entity';
 import { UserInterface } from './interfaces/user.interface';
 import { Category } from '../../categories/entities/category.entity';
+import { Notification } from '../../notifications/entities/notification.entity';
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity implements UserInterface {
@@ -20,7 +21,11 @@ export class User extends BaseEntity implements UserInterface {
   @Column()
   phoneNumber: string;
 
-  @ManyToMany(() => Category)
+  @ManyToMany(() => Category, (category) => category.users)
   @JoinTable()
   subscribed: Category[];
+
+  @ManyToMany(() => Notification, (notification) => notification.users)
+  @JoinTable()
+  channels: Notification[];
 }

@@ -1,6 +1,7 @@
 import { UserInterface } from '../entities/interfaces/user.interface';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { Category } from '../../categories/entities/category.entity';
+import { Notification } from '../../notifications/entities/notification.entity';
 
 export class UserDTO implements UserInterface {
   @IsNotEmpty()
@@ -16,4 +17,5 @@ export class UserDTO implements UserInterface {
   phoneNumber: string;
 
   subscribed: Category[];
+  channels: Notification[];
 }
