@@ -1,4 +1,4 @@
-export class LogInterface {
+export interface LogInterface {
   message: string;
   category: string;
   userInfo: string;
